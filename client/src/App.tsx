@@ -4,6 +4,7 @@ import PDFPreview from "./builder/preview/pdf";
 import { BuilderField } from "./builder/types/field-types";
 
 function App() {
+  // TODO: store resume data server-side for persistence
   const [resume, setResume] = useState<BuilderField[]>([]);
   return (
     <div
