@@ -1,0 +1,32 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100vw;
+  width: 100dvw;
+  height: 100vh;
+}
+
+.builder {
+  width: 100%;
+  height: 100%;
+}
+
+.builder > section {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(3, 3, 12, 0.4);
+}
+
+.builder > section:first-of-type {
+  background-color: rgb(3, 3, 12);
+  color: white;
+}
+
