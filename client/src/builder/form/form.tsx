@@ -9,7 +9,7 @@ import BuilderFormSectionComponent from "./form-sections";
 import defaultFormSections from "./default";
 
 type BuilderFormProps = {
-  setResume: Dispatch<SetStateAction<BuilderFormSection[]>>;
+  setBuilderForm: Dispatch<SetStateAction<BuilderFormSection[]>>;
 };
 
 export default function BuilderForm(props: BuilderFormProps) {
@@ -29,12 +29,12 @@ export default function BuilderForm(props: BuilderFormProps) {
     });
   };
 
-  const submitResume = () => {
-    props.setResume(sections);
+  const saveResume = () => {
+    props.setBuilderForm(sections);
   };
 
   useEffect(() => {
-    submitResume();
+    saveResume();
   }, []);
 
   const addSection = (props: BuilderFormSectionProps) => {
@@ -57,12 +57,13 @@ export default function BuilderForm(props: BuilderFormProps) {
             groupType: "list",
             defaultChildPosition: "main",
             children: [],
+            isEditable: true,
           })
         }
       >
         Add Section
       </button>
-      <button onClick={submitResume}>Save Resume</button>
+      <button onClick={saveResume}>Save Resume</button>
     </div>
   );
 }

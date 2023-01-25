@@ -4,8 +4,8 @@ import { BuilderFormSection } from "../types/form-types";
 const defaultFormSections = [
   new BuilderFormSection({
     title: "Personal",
-    groupType: "not-groupped",
-    defaultChildPosition: "main",
+    groupType: "flat",
+    defaultChildPosition: "header",
     children: [
       new FieldWithText({
         name: "First Name",
@@ -20,12 +20,18 @@ const defaultFormSections = [
         position: "header",
       }),
       new FieldWithText({
-        name: "Profile",
-        type: "long",
+        name: "Wanted Position",
+        type: "short",
         content: "",
-        position: "main",
+        position: "header",
       }),
     ],
+  }),
+  new BuilderFormSection({
+    title: "Education",
+    defaultChildPosition: "main",
+    groupType: "list",
+    children: [],
   }),
 ];
 

@@ -1,11 +1,31 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import BuilderForm from "./form/form";
-import PDFPreview from "./preview/pdf";
+import useResumeState from "./hooks/resume-state";
+import BuilderPreview from "./preview/builder-preview";
 import { BuilderFormSection } from "./types/form-types";
+import jsPDF from "jspdf";
+import { renderToString } from "react-dom/server";
+import themes from "./preview/themes";
 
 export default function BuilderPage() {
   // TODO: store resume data server-side for persistence
-  const [resume, setResume] = useState<BuilderFormSection[]>([]);
+  const [builderForm, setBuilderForm] = useState<BuilderFormSection[]>([]);
+  const resume = useResumeState(builderForm);
+  const pdf = useMemo(() => new jsPDF({ unit: "mm", compress: true }), []);
+  const [theme] = useState(themes.default);
+
+  const renderPDF = async () => {
+    const html = renderToString(
+      <BuilderPreview resume={resume} theme={theme} />
+    );
+    await pdf
+      .html(html, {
+        width: 210 /** a4 paper widht in mm */,
+        windowWidth: 300 /** preview width in px */,
+      })
+      .outputPdf("dataurlnewwindow");
+  };
+
   return (
     <div
       style={{
@@ -16,10 +36,11 @@ export default function BuilderPage() {
       className="builder"
     >
       <section>
-        <BuilderForm setResume={setResume} />
+        <BuilderForm setBuilderForm={setBuilderForm} />
       </section>
       <section>
-        <PDFPreview resume={resume} />
+        <BuilderPreview resume={resume} theme={theme} />
+        <button onClick={renderPDF}>Generate PDF</button>
       </section>
     </div>
   );

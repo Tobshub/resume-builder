@@ -1,4 +1,5 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
+import BuilderFieldForm from "../fields/builder-field";
 import { BuilderField, FieldWithText } from "../types/field-types";
 import {
   BuilderFormSection,
@@ -24,22 +25,16 @@ export default function BuilderFormSectionComponent({
 
   return (
     <div>
-      <h2>{section.props.title}</h2>
+      <BuilderFormSectionComponentHeading
+        section={section}
+        handleChange={handleChange}
+      />
       {section.props.children.map(item => (
-        <label key={item.id}>
-          <h3>{item.props.name}</h3>
-          {item.props.type === "short" ? (
-            <input
-              value={item.props.content}
-              onChange={e => localHandleChange(e, item)}
-            />
-          ) : (
-            <textarea
-              value={item.props.content}
-              onChange={e => localHandleChange(e, item)}
-            />
-          )}
-        </label>
+        <BuilderFieldForm
+          key={item.id}
+          item={item}
+          handleChange={e => localHandleChange(e, item)}
+        />
       ))}
       <button
         onClick={() => {
@@ -49,6 +44,7 @@ export default function BuilderFormSectionComponent({
               content: "",
               position: section.props.defaultChildPosition,
               type: "long",
+              isEditable: true,
             })
           );
           handleChange(section);
@@ -57,5 +53,53 @@ export default function BuilderFormSectionComponent({
         +
       </button>
     </div>
+  );
+}
+
+function BuilderFormSectionComponentHeading({
+  section,
+  handleChange,
+}: {
+  section: BuilderFormSection;
+  handleChange: (changedSection: BuilderFormSection) => void;
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [titleEdits, setTitleEdits] = useState(section.props.title);
+
+  if (isEditing) {
+    return (
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          section.setTitle(titleEdits);
+          handleChange(section);
+          setIsEditing(false);
+        }}
+      >
+        <input
+          value={titleEdits}
+          onChange={e => setTitleEdits(e.target.value)}
+        />
+        <button type="submit">Confirm</button>
+        <button type="button" onClick={() => setIsEditing(false)}>
+          Cancel
+        </button>
+      </form>
+    );
+  }
+  return (
+    <span
+      style={{
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        gap: "1rem",
+      }}
+    >
+      <h2>{section.props.title}</h2>
+      {section.props.isEditable ? (
+        <button onClick={() => setIsEditing(true)}>Edit</button>
+      ) : null}
+    </span>
   );
 }

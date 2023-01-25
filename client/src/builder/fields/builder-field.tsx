@@ -1,42 +1,43 @@
 import { ChangeEvent, useEffect } from "react";
 import type { BuilderField } from "../types/field-types";
 
-type BuilderFieldProps = BuilderField & {
-  setContent: (content: BuilderField["content"]) => void;
+type BuilderFieldProps = {
+  item: BuilderField;
+  handleChange(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void;
 };
 
-export default function BuilderFieldForm(props: BuilderFieldProps) {
-  const manyChangeHandler = (
-    e: ChangeEvent<HTMLInputElement>,
-    name: string
-  ) => {
-    if (props.type === "many_text") {
-      const index = props.content.findIndex(item => item.name === name);
-      if (index != undefined) {
-        props.content[index] = { name, text: e.target.value };
-        props.setContent(props.content);
-      }
-    }
-  };
+export default function BuilderFieldForm({
+  item,
+  handleChange,
+}: BuilderFieldProps) {
   return (
-    <div>
-      <h2>{props.title}</h2>
-      {props.type === "many_text" ? (
-        props.content.map(input => (
-          <label key={input.name}>
-            <span>{input.name}</span>
-            <input
-              value={input.text}
-              onChange={e => manyChangeHandler(e, input.name)}
-            />
-          </label>
-        ))
+    <label key={item.id}>
+      <span
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <h3>{item.props.name}</h3>
+        {item.props.isEditable ? <button>Edit</button> : null}
+      </span>
+      {item.props.type === "short" ? (
+        <input
+          type="text"
+          placeholder={item.props.name}
+          value={item.props.content}
+          onChange={e => handleChange(e)}
+        />
       ) : (
         <textarea
-          value={props.content}
-          onChange={e => props.setContent(e.target.value)}
+          style={{ resize: "none" }}
+          value={item.props.content}
+          onChange={e => handleChange(e)}
         />
       )}
-    </div>
+    </label>
   );
 }
