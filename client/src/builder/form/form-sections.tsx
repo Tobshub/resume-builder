@@ -1,9 +1,9 @@
 import { ChangeEvent } from "react";
-import { BuilderField } from "./types/field-types";
+import { BuilderField, FieldWithText } from "../types/field-types";
 import {
   BuilderFormSection,
   BuilderFormSectionProps,
-} from "./types/form-types";
+} from "../types/form-types";
 
 type BuilderFormSectionComponentProps = {
   section: BuilderFormSection;
@@ -41,6 +41,21 @@ export default function BuilderFormSectionComponent({
           )}
         </label>
       ))}
+      <button
+        onClick={() => {
+          section.addChild(
+            new FieldWithText({
+              name: "Untitled",
+              content: "",
+              position: section.props.defaultChildPosition,
+              type: "long",
+            })
+          );
+          handleChange(section);
+        }}
+      >
+        +
+      </button>
     </div>
   );
 }

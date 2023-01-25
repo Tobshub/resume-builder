@@ -1,10 +1,11 @@
-import { FieldWithText } from "./types/field-types";
-import { BuilderFormSection } from "./types/form-types";
+import { FieldWithText } from "../types/field-types";
+import { BuilderFormSection } from "../types/form-types";
 
 const defaultFormSections = [
   new BuilderFormSection({
     title: "Personal",
     groupType: "not-groupped",
+    defaultChildPosition: "main",
     children: [
       new FieldWithText({
         name: "First Name",

@@ -1,21 +1,15 @@
-import { useState } from "react";
-import type {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-} from "react";
-import { BuilderField, FieldWithText } from "./types/field-types";
-import useStrictObjectArrayState from "./hooks/strict-state";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { BuilderField } from "../types/field-types";
+import useStrictObjectArrayState from "../hooks/strict-state";
 import {
   BuilderFormSection,
   BuilderFormSectionProps,
-} from "./types/form-types";
+} from "../types/form-types";
 import BuilderFormSectionComponent from "./form-sections";
 import defaultFormSections from "./default";
 
 type BuilderFormProps = {
-  setResume: Dispatch<SetStateAction<BuilderField[]>>;
+  setResume: Dispatch<SetStateAction<BuilderFormSection[]>>;
 };
 
 export default function BuilderForm(props: BuilderFormProps) {
@@ -35,6 +29,14 @@ export default function BuilderForm(props: BuilderFormProps) {
     });
   };
 
+  const submitResume = () => {
+    props.setResume(sections);
+  };
+
+  useEffect(() => {
+    submitResume();
+  }, []);
+
   const addSection = (props: BuilderFormSectionProps) => {
     pushSection(new BuilderFormSection(props));
   };
@@ -53,19 +55,14 @@ export default function BuilderForm(props: BuilderFormProps) {
           addSection({
             title: "Untitled",
             groupType: "list",
-            children: [
-              new FieldWithText({
-                content: "",
-                name: "",
-                type: "long",
-                position: "main",
-              }),
-            ],
+            defaultChildPosition: "main",
+            children: [],
           })
         }
       >
         Add Section
       </button>
+      <button onClick={submitResume}>Save Resume</button>
     </div>
   );
 }
