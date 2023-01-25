@@ -5,118 +5,67 @@ import type {
   FormEvent,
   SetStateAction,
 } from "react";
-import type { BuilderField } from "./types/field-types";
-import { FieldWithText, FieldWithManyText } from "./types/field-types";
-import ListField from "./fields/list";
-import TextField from "./fields/text";
-import BuilderFieldForm from "./fields/builder-field";
-import useStrictStateArray from "./hooks/strict-state";
+import { BuilderField, FieldWithText } from "./types/field-types";
+import useStrictObjectArrayState from "./hooks/strict-state";
+import {
+  BuilderFormSection,
+  BuilderFormSectionProps,
+} from "./types/form-types";
+import BuilderFormSectionComponent from "./form-sections";
+import defaultFormSections from "./default";
 
 type BuilderFormProps = {
   setResume: Dispatch<SetStateAction<BuilderField[]>>;
 };
 
 export default function BuilderForm(props: BuilderFormProps) {
-  const [fields, setFields, pushField] = useStrictStateArray<
-    BuilderField[]
-  >([
-    new FieldWithManyText({
-      content: [
-        {
-          name: "First Name",
-          text: "",
-        },
-        {
-          name: "Last Name",
-          text: "",
-        },
-      ],
-      title: "Personal",
-    }),
-  ]);
+  const [sections, setSections, pushSection] = useStrictObjectArrayState<
+    BuilderFormSection[]
+  >(defaultFormSections);
 
-  const addField = (
-    type: BuilderField["type"],
-    title: BuilderField["title"]
-  ) => {
-    switch (type) {
-      case "many_text": {
-        pushField(new FieldWithManyText({ content: [], title }));
-        break;
+  const handleChange = (changedSection: BuilderFormSection) => {
+    setSections(prevState => {
+      const index = prevState.findIndex(
+        section => section.id === changedSection.id
+      );
+      if (index != undefined) {
+        prevState[index] = changedSection;
       }
-      case "single_text": {
-        pushField(new FieldWithText({ content: "", title }));
-        break;
-      }
-    }
+      return [...prevState];
+    });
   };
 
-  const handleChange = (
-    id: BuilderField["id"],
-    content: BuilderField["content"]
-  ) => {
-    const index = fields.findIndex(field => field.id === id);
-    fields[index].content = content;
-    setFields([...fields]);
-  };
-
-  const handleSave = () => {
-    props.setResume(fields);
+  const addSection = (props: BuilderFormSectionProps) => {
+    pushSection(new BuilderFormSection(props));
   };
 
   return (
     <div>
-      {fields.map(field => (
-        <BuilderFieldForm
-          key={field.id}
-          {...field}
-          setContent={content => handleChange(field.id, content)}
+      {sections.map(section => (
+        <BuilderFormSectionComponent
+          key={section.id}
+          section={section}
+          handleChange={handleChange}
         />
       ))}
-      <NewBuilderField handleSubmit={addField} />
-      <button onClick={handleSave}>Save</button>
+      <button
+        onClick={() =>
+          addSection({
+            title: "Untitled",
+            groupType: "list",
+            children: [
+              new FieldWithText({
+                content: "",
+                name: "",
+                type: "long",
+                position: "main",
+              }),
+            ],
+          })
+        }
+      >
+        Add Section
+      </button>
     </div>
-  );
-}
-
-function NewBuilderField({
-  handleSubmit,
-}: {
-  handleSubmit: (
-    type: BuilderField["type"],
-    title: BuilderField["title"]
-  ) => void;
-}) {
-  const [field, setField] = useState<{
-    type: BuilderField["type"];
-    title: BuilderField["title"];
-  }>({
-    title: "",
-    type: "single_text",
-  });
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setField(state => ({
-      ...state,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const localHandleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleSubmit(field.type, field.title.trim() || "Untitled");
-  };
-
-  return (
-    <form onSubmit={localHandleSubmit}>
-      <h2>New Field</h2>
-      <label>
-        <span>Title: </span>
-        <input value={field.title} onChange={handleChange} name="title" />
-      </label>
-      <button type="submit">Add</button>
-    </form>
   );
 }
