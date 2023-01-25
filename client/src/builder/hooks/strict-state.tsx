@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function useStrictStateArray<
-  S extends ({ id: string } | string)[]
+export default function useStrictObjectArrayState<
+  S extends { id: string }[]
 >(initialState: S) {
   if (!Array.isArray(initialState)) {
     throw new Error("Type Error: State Must be An Array");
@@ -12,9 +12,8 @@ export default function useStrictStateArray<
   const push = <T extends S[0]>(item: T) => {
     hardSetState(state => {
       if (item) {
-        if (
-          state.find(one => JSON.stringify(one) === JSON.stringify(item))
-        ) {
+        // prevent duplicates
+        if (state.find(one => one.id === item.id)) {
           return state;
         }
         state.push(item);
@@ -24,18 +23,11 @@ export default function useStrictStateArray<
   };
 
   const excludeAndSet = <O extends S[0]>(
-    property: "id" | undefined,
-    value: O
+    property: "id",
+    value: O["id"]
   ) => {
     hardSetState(state => {
-      const filter = state.filter(val => {
-        if (typeof val === "object" && property && property in val) {
-          return val[property] !== value;
-        } else {
-          return val !== value;
-        }
-      });
-
+      const filter = state.filter(val => val[property] !== value);
       return [...filter] as S;
     });
   };
