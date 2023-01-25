@@ -3,34 +3,29 @@ import { BuilderFormSection } from "../types/form-types";
 import { PreviewStructure } from "../types/preview-types";
 
 export default function useResumeState(builder: BuilderFormSection[]) {
-  const [header] = useState<PreviewStructure["header"]>(() => {
-    const section = builder.find(
-      section => section.props.defaultChildPosition === "header"
-    );
-    if (!section) {
-      throw new Error(
-        "Builder Error: Resume Shape Must Always have a header section"
-      );
-    }
-    return section;
-  });
+  const header = builder.find(
+    section => section.props.defaultChildPosition === "header"
+  );
 
-  const [main] = useState<PreviewStructure["main"]>(() => {
-    const section = builder.filter(
+  // throw error if there isn't a header
+  if (builder.length && !header) {
+    throw new Error(
+      "Builder Error: Resume Shape Must Always have a header section"
+    );
+  }
+
+  const main =
+    builder.filter(
       section => section.props.defaultChildPosition === "main"
-    );
-    return section ?? [];
-  });
+    ) ?? [];
 
-  const [side] = useState<PreviewStructure["side"]>(() => {
-    const section = builder.filter(
+  const side =
+    builder.filter(
       section => section.props.defaultChildPosition === "side"
-    );
-    return section ?? [];
-  });
+    ) ?? [];
 
   const resume = useMemo(
-    () => new PreviewStructure(header, main, side),
+    () => (header ? new PreviewStructure(header, main, side) : undefined),
     [builder]
   );
 
