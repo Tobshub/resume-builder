@@ -13,8 +13,6 @@ export default function BuilderPage() {
   // TODO: store resume data server-side for persistence
   const [builderForm, setBuilderForm] = useState<BuilderFormSection[]>([]);
   const [userImage, setUserImage] = useState(PlaceHolderSVG);
-  useEffect(() => console.log(userImage), [userImage]);
-
   const resume = useResumeState(builderForm, userImage);
   const pdf = useMemo(() => new jsPDF({ unit: "mm", compress: true }), []);
   const [theme] = useState(themes.default);
