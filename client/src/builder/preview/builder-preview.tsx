@@ -9,6 +9,7 @@ type BuilderPreviewProps = {
   theme: typeof themes.default;
 };
 
+// render build preview with react
 export default function BuilderPreview({
   resume,
   theme,

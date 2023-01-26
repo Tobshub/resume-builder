@@ -16,6 +16,7 @@ export default function BuilderFormSectionComponent({
   section,
   handleChange,
 }: BuilderFormSectionComponentProps) {
+  // handle input text
   const localHandleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     item: BuilderField
@@ -24,6 +25,7 @@ export default function BuilderFormSectionComponent({
     handleChange(section);
   };
 
+  // handle changes to a field name
   const handleFieldNameChange = (
     text: BuilderField["props"]["name"],
     item: BuilderField
@@ -84,6 +86,7 @@ function BuilderFormSectionComponentHeading({
   const [isEditing, setIsEditing] = useState(false);
   const [titleEdits, setTitleEdits] = useState(section.props.title);
 
+  // render in edit mode
   if (isEditing) {
     return (
       <form
@@ -91,6 +94,7 @@ function BuilderFormSectionComponentHeading({
           e.preventDefault();
           section.setTitle(titleEdits);
           handleChange(section);
+          // exit edit mode
           setIsEditing(false);
         }}
       >
@@ -127,7 +131,7 @@ function BuilderFormSectionComponentHeading({
       {section.props.isEditable ? (
         <button
           className={csx("btn btn-outline-warning")}
-          onClick={() => setIsEditing(true)}
+          onClick={() => setIsEditing(true) /** switch to edit mode */}
         >
           Edit
         </button>

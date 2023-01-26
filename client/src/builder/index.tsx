@@ -11,12 +11,16 @@ import PlaceHolderSVG from "../assets/images/tobs.jpg";
 
 export default function BuilderPage() {
   // TODO: store resume data server-side for persistence
+  // store the resume data
   const [builderForm, setBuilderForm] = useState<BuilderFormSection[]>([]);
   const [userImage, setUserImage] = useState(PlaceHolderSVG);
+
+  // store the resume structure
   const resume = useResumeState(builderForm, userImage);
   const pdf = useMemo(() => new jsPDF({ unit: "mm", compress: true }), []);
   const [theme] = useState(themes.default);
 
+  // create the pdf out of the preview
   const renderPDF = async () => {
     const html = renderToString(
       <BuilderPreview resume={resume} theme={theme} />

@@ -15,6 +15,7 @@ type BuilderFormProps = {
 };
 
 export default function BuilderForm(props: BuilderFormProps) {
+  // store the sections for the resume builder form
   const [sections, setSections, pushSection] = useStrictObjectArrayState<
     BuilderFormSection[]
   >(defaultFormSections);
@@ -39,6 +40,7 @@ export default function BuilderForm(props: BuilderFormProps) {
     }
   };
 
+  // save the resume on first render
   useEffect(() => {
     saveResume();
   }, []);

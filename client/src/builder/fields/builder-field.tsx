@@ -56,12 +56,14 @@ function BuilderFieldFormHeadingComponent({
   const [isEditing, setIsEditing] = useState(false);
   const [nameEdits, setNameEdits] = useState(item.props.name);
 
+  // render in edit mode
   if (isEditing) {
     return (
       <form
         onSubmit={e => {
           e.preventDefault();
           handleChange(nameEdits);
+          // exit edit mode
           setIsEditing(false);
         }}
       >
@@ -79,6 +81,7 @@ function BuilderFieldFormHeadingComponent({
           className={csx("btn btn-outline-danger")}
           type="button"
           onClick={() => {
+            // exit edit mode after slight timeout
             setTimeout(() => {
               setIsEditing(false);
             }, 10);
@@ -102,7 +105,7 @@ function BuilderFieldFormHeadingComponent({
       {item.props.isEditable ? (
         <button
           className={csx("btn", "btn-outline-secondary")}
-          onClick={() => setIsEditing(true)}
+          onClick={() => setIsEditing(true) /** enter edit mode */}
         >
           Edit
         </button>
