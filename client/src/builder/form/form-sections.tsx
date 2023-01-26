@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import csx from "../../utils/csx";
 import BuilderFieldForm from "../fields/builder-field";
 import { BuilderField, FieldWithText } from "../types/field-types";
 import {
@@ -23,35 +24,52 @@ export default function BuilderFormSectionComponent({
     handleChange(section);
   };
 
+  const handleFieldNameChange = (
+    text: BuilderField["props"]["name"],
+    item: BuilderField
+  ) => {
+    item.editName(text);
+    handleChange(section);
+  };
+
   return (
-    <div>
+    <div className="p-2">
       <BuilderFormSectionComponentHeading
         section={section}
         handleChange={handleChange}
       />
-      {section.props.children.map(item => (
-        <BuilderFieldForm
-          key={item.id}
-          item={item}
-          handleChange={e => localHandleChange(e, item)}
-        />
-      ))}
-      <button
-        onClick={() => {
-          section.addChild(
-            new FieldWithText({
-              name: "Untitled",
-              content: "",
-              position: section.props.defaultChildPosition,
-              type: "long",
-              isEditable: true,
-            })
-          );
-          handleChange(section);
-        }}
-      >
-        +
-      </button>
+      <div className={csx("w-100 d-flex gap-3 flex-wrap")}>
+        {section.props.children.map(item => (
+          <BuilderFieldForm
+            key={item.id}
+            item={item}
+            sectionType={section.props.groupType}
+            handleContentChange={e => localHandleChange(e, item)}
+            handleNameChange={(text: BuilderField["props"]["name"]) =>
+              handleFieldNameChange(text, item)
+            }
+          />
+        ))}
+      </div>
+      {section.props.isEditable ? (
+        <button
+          className={csx("btn btn-outline-secondary")}
+          onClick={() => {
+            section.addChild(
+              new FieldWithText({
+                name: section.props.groupType === "list" ? "" : "Untitled",
+                content: "",
+                position: section.props.defaultChildPosition,
+                type: section.props.defaultChildType ?? "long",
+                isEditable: true,
+              })
+            );
+            handleChange(section);
+          }}
+        >
+          +
+        </button>
+      ) : null}
     </div>
   );
 }
@@ -76,12 +94,21 @@ function BuilderFormSectionComponentHeading({
           setIsEditing(false);
         }}
       >
-        <input
-          value={titleEdits}
-          onChange={e => setTitleEdits(e.target.value)}
-        />
-        <button type="submit">Confirm</button>
-        <button type="button" onClick={() => setIsEditing(false)}>
+        <label>
+          <input
+            className={csx("form-control p-2")}
+            value={titleEdits}
+            onChange={e => setTitleEdits(e.target.value)}
+          />
+        </label>
+        <button className={csx("btn btn-outline-success")} type="submit">
+          Confirm
+        </button>
+        <button
+          className={csx("btn btn-outline-danger")}
+          type="button"
+          onClick={() => setIsEditing(false)}
+        >
           Cancel
         </button>
       </form>
@@ -96,9 +123,14 @@ function BuilderFormSectionComponentHeading({
         gap: "1rem",
       }}
     >
-      <h2>{section.props.title}</h2>
+      <h2 className={csx("display-6")}>{section.props.title}</h2>
       {section.props.isEditable ? (
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button
+          className={csx("btn btn-outline-warning")}
+          onClick={() => setIsEditing(true)}
+        >
+          Edit
+        </button>
       ) : null}
     </span>
   );

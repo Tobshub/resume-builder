@@ -1,3 +1,4 @@
+import "./builder.css";
 import { useEffect, useMemo, useState } from "react";
 import BuilderForm from "./form/form";
 import useResumeState from "./hooks/resume-state";
@@ -6,11 +7,15 @@ import { BuilderFormSection } from "./types/form-types";
 import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import themes from "./preview/themes";
+import PlaceHolderSVG from "../assets/images/tobs.jpg";
 
 export default function BuilderPage() {
   // TODO: store resume data server-side for persistence
   const [builderForm, setBuilderForm] = useState<BuilderFormSection[]>([]);
-  const resume = useResumeState(builderForm);
+  const [userImage, setUserImage] = useState(PlaceHolderSVG);
+  useEffect(() => console.log(userImage), [userImage]);
+
+  const resume = useResumeState(builderForm, userImage);
   const pdf = useMemo(() => new jsPDF({ unit: "mm", compress: true }), []);
   const [theme] = useState(themes.default);
 
@@ -36,7 +41,10 @@ export default function BuilderPage() {
       className="builder"
     >
       <section>
-        <BuilderForm setBuilderForm={setBuilderForm} />
+        <BuilderForm
+          setBuilderForm={setBuilderForm}
+          setUserImage={setUserImage}
+        />
       </section>
       <section>
         <BuilderPreview resume={resume} theme={theme} />

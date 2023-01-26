@@ -22,8 +22,20 @@ const themes = {
         y: 0,
       },
     },
-    main: {},
-    side: {},
+    main: {
+      font: {
+        large: ".7rem",
+        small: ".4rem",
+      },
+      highlights: "gold",
+    },
+    side: {
+      font: {
+        large: ".6rem",
+        small: ".35rem",
+      },
+      highlights: "gold",
+    },
   },
 };
 

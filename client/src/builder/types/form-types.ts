@@ -5,6 +5,7 @@ export type BuilderFormSectionProps = {
   children: BuilderField[];
   groupType: "flat" | "list";
   defaultChildPosition: BuilderField["props"]["position"];
+  defaultChildType?: BuilderField["props"]["type"];
   isEditable?: boolean;
 };
 

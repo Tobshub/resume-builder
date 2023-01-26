@@ -2,7 +2,7 @@ import jsPDF from "jspdf";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PreviewStructure } from "../types/preview-types";
 import themes from "./themes";
-import PlaceHolderSVG from "../../assets/images/tobs.jpg";
+import csx from "../../utils/csx";
 
 type BuilderPreviewProps = {
   resume: PreviewStructure | undefined;
@@ -27,10 +27,11 @@ export default function BuilderPreview({
       <section
         style={{
           display: "flex",
+          gap: "10%",
         }}
       >
-        <article></article>
-        <main></main>
+        <BuilderPreviewSide theme={theme.side} resume={resume} />
+        <BuilderPreviewMain theme={theme.main} resume={resume} />
       </section>
     </div>
   );
@@ -53,10 +54,11 @@ function BuilderPreviewHeader(props: {
         gap: "1rem",
         padding: "0 .5rem",
         border: `1px solid ${props.theme.highlights}`,
+        marginBottom: "1.5rem",
       }}
     >
       <img
-        src={PlaceHolderSVG}
+        src={props.resume?.image}
         style={{ width: "50px", height: "50px", borderRadius: "50%" }}
       />
       <div>
@@ -89,5 +91,104 @@ function BuilderPreviewHeader(props: {
         </p>
       </div>
     </header>
+  );
+}
+
+function BuilderPreviewMain(props: {
+  theme: BuilderPreviewProps["theme"]["main"];
+  resume: BuilderPreviewProps["resume"];
+}) {
+  return (
+    <main
+      style={{
+        width: "70%",
+        fontSize: props.theme.font.small,
+      }}
+    >
+      {props.resume?.main.map(section => (
+        <div key={section.id}>
+          <h2
+            style={{
+              fontSize: props.theme.font.large,
+              padding: `0 ${props.theme.font.small}`,
+              borderBottom: `1px solid ${props.theme.highlights}`,
+            }}
+          >
+            {section.props.title}
+          </h2>
+          {section.props.children.map(item => (
+            <div
+              key={item.id}
+              style={{
+                margin: ".2rem 0",
+                padding: `0 ${props.theme.font.large}`,
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: props.theme.font.small,
+                  margin: 0,
+                }}
+              >
+                {item.props.name}
+              </h3>
+              <p style={{ margin: 0 }}>{item.props.content}</p>
+            </div>
+          ))}
+        </div>
+      ))}
+    </main>
+  );
+}
+
+function BuilderPreviewSide(props: {
+  theme: BuilderPreviewProps["theme"]["main"];
+  resume: BuilderPreviewProps["resume"];
+}) {
+  return (
+    <article
+      style={{ width: "20%", display: "flex", flexDirection: "column" }}
+    >
+      {props.resume?.side.map(section => (
+        <div key={section.id}>
+          <h2
+            style={{
+              fontSize: props.theme.font.large,
+              padding: `0 ${props.theme.font.small}`,
+              borderBottom: `1px solid ${props.theme.highlights}`,
+            }}
+          >
+            {section.props.title}
+          </h2>
+          {section.props.children.map(item => (
+            <div
+              key={item.id}
+              style={{
+                margin: ".2rem 0",
+                padding: `0 ${props.theme.font.large}`,
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: props.theme.font.small,
+                  margin: 0,
+                }}
+              >
+                {item.props.name}
+              </h3>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: props.theme.font.small,
+                  width: "75%",
+                }}
+              >
+                {item.props.content}
+              </p>
+            </div>
+          ))}
+        </div>
+      ))}
+    </article>
   );
 }

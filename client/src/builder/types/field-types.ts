@@ -18,4 +18,10 @@ export class FieldWithText {
   write(text: FieldWithTextProps["content"]) {
     this.props.content = text ?? "";
   }
+
+  editName(text: FieldWithTextProps["name"]) {
+    if (this.props.isEditable) {
+      this.props.name = text;
+    }
+  }
 }

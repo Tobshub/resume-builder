@@ -3,7 +3,7 @@ import { BuilderFormSection } from "../types/form-types";
 
 const defaultFormSections = [
   new BuilderFormSection({
-    title: "Personal",
+    title: "TL;DR",
     groupType: "flat",
     defaultChildPosition: "header",
     children: [
@@ -28,9 +28,57 @@ const defaultFormSections = [
     ],
   }),
   new BuilderFormSection({
+    title: "Personal",
+    defaultChildPosition: "side",
+    groupType: "flat",
+    children: [
+      new FieldWithText({
+        name: "Email",
+        type: "short",
+        content: "",
+        position: "side",
+      }),
+      new FieldWithText({
+        name: "Phone No.",
+        type: "short",
+        content: "",
+        position: "side",
+      }),
+      new FieldWithText({
+        name: "State/Country",
+        type: "short",
+        content: "",
+        position: "side",
+      }),
+    ],
+  }),
+  new BuilderFormSection({
+    title: "About Me",
+    defaultChildPosition: "main",
+    groupType: "flat",
+    isEditable: false,
+    children: [
+      new FieldWithText({
+        name: "",
+        content: "",
+        position: "main",
+        type: "long",
+      }),
+    ],
+  }),
+  new BuilderFormSection({
     title: "Education",
     defaultChildPosition: "main",
     groupType: "list",
+    isEditable: true,
+    children: [],
+  }),
+  new BuilderFormSection({
+    title: "Hobbies",
+    defaultChildPosition: "side",
+    defaultChildType: "short",
+    groupType: "list",
+    isEditable: true,
     children: [],
   }),
 ];

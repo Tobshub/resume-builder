@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { BuilderField } from "../types/field-types";
 import useStrictObjectArrayState from "../hooks/strict-state";
 import {
@@ -7,15 +7,18 @@ import {
 } from "../types/form-types";
 import BuilderFormSectionComponent from "./form-sections";
 import defaultFormSections from "./default";
+import csx from "../../utils/csx";
 
 type BuilderFormProps = {
   setBuilderForm: Dispatch<SetStateAction<BuilderFormSection[]>>;
+  setUserImage: Dispatch<SetStateAction<string>>;
 };
 
 export default function BuilderForm(props: BuilderFormProps) {
   const [sections, setSections, pushSection] = useStrictObjectArrayState<
     BuilderFormSection[]
   >(defaultFormSections);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (changedSection: BuilderFormSection) => {
     setSections(prevState => {
@@ -31,6 +34,9 @@ export default function BuilderForm(props: BuilderFormProps) {
 
   const saveResume = () => {
     props.setBuilderForm(sections);
+    if (imageInputRef.current) {
+      // props.setUserImage();
+    }
   };
 
   useEffect(() => {
@@ -42,7 +48,12 @@ export default function BuilderForm(props: BuilderFormProps) {
   };
 
   return (
-    <div>
+    <div className={csx("w-100 h-100 builder-form")}>
+      <input
+        ref={imageInputRef}
+        type="file"
+        accept="image/png; image/jpg;"
+      />
       {sections.map(section => (
         <BuilderFormSectionComponent
           key={section.id}
@@ -50,20 +61,30 @@ export default function BuilderForm(props: BuilderFormProps) {
           handleChange={handleChange}
         />
       ))}
-      <button
-        onClick={() =>
-          addSection({
-            title: "Untitled",
-            groupType: "list",
-            defaultChildPosition: "main",
-            children: [],
-            isEditable: true,
-          })
-        }
-      >
-        Add Section
-      </button>
-      <button onClick={saveResume}>Save Resume</button>
+      <div className="p-2">
+        <button
+          className={csx("btn btn-outline-secondary")}
+          onClick={() =>
+            addSection({
+              title: "Untitled",
+              groupType: "flat",
+              defaultChildPosition: "main",
+              children: [],
+              isEditable: true,
+            })
+          }
+        >
+          Add Section
+        </button>
+      </div>
+      <div className="p-2">
+        <button
+          className={csx("btn btn-outline-secondary")}
+          onClick={saveResume}
+        >
+          Save Resume
+        </button>
+      </div>
     </div>
   );
 }

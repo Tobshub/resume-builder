@@ -2,7 +2,10 @@ import { useMemo, useState } from "react";
 import { BuilderFormSection } from "../types/form-types";
 import { PreviewStructure } from "../types/preview-types";
 
-export default function useResumeState(builder: BuilderFormSection[]) {
+export default function useResumeState(
+  builder: BuilderFormSection[],
+  Image: string
+) {
   const header = builder.find(
     section => section.props.defaultChildPosition === "header"
   );
@@ -25,7 +28,8 @@ export default function useResumeState(builder: BuilderFormSection[]) {
     ) ?? [];
 
   const resume = useMemo(
-    () => (header ? new PreviewStructure(header, main, side) : undefined),
+    () =>
+      header ? new PreviewStructure(header, main, side, Image) : undefined,
     [builder]
   );
 
