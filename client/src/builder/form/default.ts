@@ -69,7 +69,7 @@ const defaultFormSections = [
   new BuilderFormSection({
     title: "Education",
     defaultChildPosition: "main",
-    groupType: "list",
+    groupType: "flat",
     isEditable: true,
     children: [],
   }),
