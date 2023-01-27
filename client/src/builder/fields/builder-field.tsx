@@ -28,7 +28,6 @@ export default function BuilderFieldForm({
       ) : null}
       {item.props.type === "short" ? (
         <input
-          className={csx("p-1")}
           type="text"
           placeholder={item.props.name}
           value={item.props.content}
@@ -36,7 +35,6 @@ export default function BuilderFieldForm({
         />
       ) : (
         <textarea
-          className={csx("p-1")}
           style={{ resize: "none" }}
           value={item.props.content}
           onChange={e => handleContentChange(e)}
@@ -101,7 +99,7 @@ function BuilderFieldFormHeadingComponent({
         alignItems: "center",
       }}
     >
-      <h3 className="font-3">{item.props.name}</h3>
+      <h3 className="fs-5">{item.props.name}</h3>
       {item.props.isEditable ? (
         <button
           className={csx("btn", "btn-outline-secondary")}
