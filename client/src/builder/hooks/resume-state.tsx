@@ -30,7 +30,7 @@ export default function useResumeState(
   const resume = useMemo(
     () =>
       header ? new PreviewStructure(header, main, side, Image) : undefined,
-    [builder]
+    [builder, Image]
   );
 
   return resume;

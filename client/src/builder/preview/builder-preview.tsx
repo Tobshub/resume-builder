@@ -60,7 +60,12 @@ function BuilderPreviewHeader(props: {
     >
       <img
         src={props.resume?.image}
-        style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+        style={{
+          width: "50px",
+          height: "50px",
+          borderRadius: "50%",
+          objectFit: "cover",
+        }}
       />
       <div>
         <h1

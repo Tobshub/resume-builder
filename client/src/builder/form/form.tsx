@@ -35,8 +35,18 @@ export default function BuilderForm(props: BuilderFormProps) {
 
   const saveResume = () => {
     props.setBuilderForm(sections);
-    if (imageInputRef.current) {
-      // props.setUserImage();
+    if (
+      imageInputRef.current &&
+      imageInputRef.current.files &&
+      imageInputRef.current.files.length
+    ) {
+      const [file] = imageInputRef.current.files;
+
+      const fr = new FileReader();
+      const url = fr.readAsDataURL(file);
+      console.log(url);
+      const src = URL.createObjectURL(file);
+      props.setUserImage(src);
     }
   };
 

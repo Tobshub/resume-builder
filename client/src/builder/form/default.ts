@@ -55,7 +55,7 @@ const defaultFormSections = [
   new BuilderFormSection({
     title: "About Me",
     defaultChildPosition: "main",
-    groupType: "flat",
+    groupType: "list",
     isEditable: false,
     children: [
       new FieldWithText({
