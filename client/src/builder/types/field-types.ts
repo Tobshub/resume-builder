@@ -4,7 +4,6 @@ export type FieldWithTextProps = {
   type: "short" | "long";
   name: string;
   content: string;
-  position: "header" | "main" | "side";
   isEditable?: boolean;
 };
 

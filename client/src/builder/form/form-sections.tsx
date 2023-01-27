@@ -61,7 +61,6 @@ export default function BuilderFormSectionComponent({
               new FieldWithText({
                 name: section.props.groupType === "list" ? "" : "Untitled",
                 content: "",
-                position: section.props.defaultChildPosition,
                 type: section.props.defaultChildType ?? "long",
                 isEditable: true,
               })

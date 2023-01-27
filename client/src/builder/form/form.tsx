@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
-import { BuilderField } from "../types/field-types";
 import useStrictObjectArrayState from "../hooks/strict-state";
 import {
   BuilderFormSection,
