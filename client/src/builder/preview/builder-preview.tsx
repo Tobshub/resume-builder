@@ -58,15 +58,17 @@ function BuilderPreviewHeader(props: {
         marginBottom: "1.5rem",
       }}
     >
-      <img
-        src={props.resume?.image}
-        style={{
-          width: "50px",
-          height: "50px",
-          borderRadius: "50%",
-          objectFit: "cover",
-        }}
-      />
+      {props.resume?.image ? (
+        <img
+          src={props.resume.image}
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+            objectFit: "cover",
+          }}
+        />
+      ) : null}
       <div>
         <h1
           style={{
