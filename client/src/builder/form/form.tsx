@@ -63,11 +63,7 @@ export default function BuilderForm(props: BuilderFormProps) {
 
   return (
     <div className={csx("w-100 h-100 builder-form")}>
-      <input
-        ref={imageInputRef}
-        type="file"
-        accept="image/png; image/jpg;"
-      />
+      <input ref={imageInputRef} type="file" accept="image/*" />
       {sections.map(section => (
         <BuilderFormSectionComponent
           key={section.id}
