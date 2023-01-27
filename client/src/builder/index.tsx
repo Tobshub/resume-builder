@@ -7,13 +7,12 @@ import { BuilderFormSection } from "./types/form-types";
 import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import themes from "./preview/themes";
-import PlaceHolderSVG from "../assets/images/tobs.jpg";
 
 export default function BuilderPage() {
   // TODO: store resume data server-side for persistence
   // store the resume data
   const [builderForm, setBuilderForm] = useState<BuilderFormSection[]>([]);
-  const [userImage, setUserImage] = useState(PlaceHolderSVG);
+  const [userImage, setUserImage] = useState("");
 
   // store the resume structure
   const resume = useResumeState(builderForm, userImage);

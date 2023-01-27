@@ -43,10 +43,12 @@ export default function BuilderForm(props: BuilderFormProps) {
       const [file] = imageInputRef.current.files;
 
       const fr = new FileReader();
-      const url = fr.readAsDataURL(file);
-      console.log(url);
-      const src = URL.createObjectURL(file);
-      props.setUserImage(src);
+      fr.readAsDataURL(file);
+      fr.onload = () => {
+        if (fr.result) {
+          props.setUserImage(fr.result?.toString());
+        }
+      };
     }
   };
 
