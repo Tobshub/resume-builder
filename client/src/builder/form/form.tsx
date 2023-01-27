@@ -41,7 +41,7 @@ export default function BuilderForm(props: BuilderFormProps) {
       imageInputRef.current.files.length
     ) {
       const [file] = imageInputRef.current.files;
-
+      // read file data and pass it as the img src
       const fr = new FileReader();
       fr.readAsDataURL(file);
       fr.onload = () => {
