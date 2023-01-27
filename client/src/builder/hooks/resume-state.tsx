@@ -19,12 +19,18 @@ export default function useResumeState(
 
   const main =
     builder.filter(
-      section => section.props.defaultChildPosition === "main"
+      section =>
+        section.props.defaultChildPosition === "main" &&
+        section.props.children
+          .length /** only display sections with children */
     ) ?? [];
 
   const side =
     builder.filter(
-      section => section.props.defaultChildPosition === "side"
+      section =>
+        section.props.defaultChildPosition === "side" &&
+        section.props.children
+          .length /** only display sections with children */
     ) ?? [];
 
   const resume = useMemo(
