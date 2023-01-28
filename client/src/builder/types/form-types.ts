@@ -4,7 +4,7 @@ export type BuilderFormSectionProps = {
   title: string;
   children: BuilderField[];
   groupType: "flat" | "list";
-  defaultChildPosition: BuilderField["props"]["position"];
+  defaultChildPosition: "header" | "main" | "side";
   defaultChildType?: BuilderField["props"]["type"];
   isEditable?: boolean;
 };
@@ -18,6 +18,12 @@ export class BuilderFormSection {
 
   addChild(item: BuilderField) {
     this.props.children.push(item);
+  }
+
+  removeChild(item: BuilderField) {
+    this.props.children = this.props.children.filter(
+      child => child.id !== item.id
+    );
   }
 
   setTitle(newTitle: BuilderFormSectionProps["title"]) {

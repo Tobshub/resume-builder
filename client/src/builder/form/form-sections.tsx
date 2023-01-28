@@ -34,13 +34,23 @@ export default function BuilderFormSectionComponent({
     handleChange(section);
   };
 
+  const removeField = (item: BuilderField) => {
+    section.removeChild(item);
+    handleChange(section);
+  };
+
   return (
     <div className="p-2">
       <BuilderFormSectionComponentHeading
         section={section}
         handleChange={handleChange}
       />
-      <div className={csx("w-100 d-flex gap-3 flex-wrap")}>
+      <div
+        className={csx(
+          "w-100 d-flex gap-3 flex-wrap",
+          section.props.groupType === "list" ? "flex-column" : ""
+        )}
+      >
         {section.props.children.map(item => (
           <BuilderFieldForm
             key={item.id}
@@ -50,6 +60,7 @@ export default function BuilderFormSectionComponent({
             handleNameChange={(text: BuilderField["props"]["name"]) =>
               handleFieldNameChange(text, item)
             }
+            deleteSelf={() => removeField(item)}
           />
         ))}
       </div>

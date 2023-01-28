@@ -10,6 +10,7 @@ type BuilderFieldProps = {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void;
   handleNameChange(text: BuilderField["props"]["name"]): void;
+  deleteSelf(): void;
 };
 
 export default function BuilderFieldForm({
@@ -17,6 +18,7 @@ export default function BuilderFieldForm({
   sectionType,
   handleContentChange,
   handleNameChange,
+  deleteSelf,
 }: BuilderFieldProps) {
   return (
     <label className="builder-field">
@@ -40,6 +42,14 @@ export default function BuilderFieldForm({
           onChange={e => handleContentChange(e)}
         />
       )}
+      {item.props.isEditable ? (
+        <button
+          className={csx("btn", "btn-outline-danger")}
+          onClick={deleteSelf}
+        >
+          Delete
+        </button>
+      ) : null}
     </label>
   );
 }
