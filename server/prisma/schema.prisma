@@ -21,4 +21,39 @@ model Resume {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   owner    User      @relation(fields: [ownerId], references: [id])
   ownerId  String    @db.ObjectId
+  content  ResumeStructure
+}
+
+// same as PreviewStructure on client
+type ResumeStructure {
+  header   BuilderFormSection
+  main     BuilderFormSection[]
+  side     BuilderFormSection[]
+  image    String
+}
+
+type BuilderFormSection {
+  id       String
+  props    BuilderFormSectionProps
+}
+
+type BuilderFormSectionProps {
+  title                String
+  children             BuilderField[]
+  groupType            String
+  defaultChildPosition String
+  defaultChildType     String?
+  isEditable           Boolean?
+}
+
+type BuilderField {
+  id    String
+  props BuilderFieldProps
+}
+
+type BuilderFieldProps {
+  type          String
+  name          String
+  content       String
+  isEditable    Boolean?
 }

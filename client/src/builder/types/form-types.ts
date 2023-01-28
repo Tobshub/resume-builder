@@ -11,8 +11,8 @@ export type BuilderFormSectionProps = {
 
 export class BuilderFormSection {
   id: string;
-  constructor(public props: BuilderFormSectionProps) {
-    this.id = crypto.randomUUID();
+  constructor(public props: BuilderFormSectionProps, id?: string) {
+    this.id = id ?? crypto.randomUUID();
     this.props.isEditable = props.isEditable ?? false;
   }
 
