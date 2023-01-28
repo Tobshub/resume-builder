@@ -17,7 +17,7 @@ export default function BuilderPage() {
   // store the resume structure
   const resume = useResumeState(builderForm, userImage);
   const pdf = useMemo(() => new jsPDF({ unit: "mm", compress: true }), []);
-  const [theme] = useState(themes.default);
+  const [theme] = useState<typeof themes.default>(themes.clean);
 
   // create the pdf out of the preview
   const renderPDF = async () => {
