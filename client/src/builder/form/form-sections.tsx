@@ -107,6 +107,13 @@ function BuilderFormSectionComponentHeading({
           // exit edit mode
           setIsEditing(false);
         }}
+        className={csx(
+          "d-flex",
+          "justify-content-start align-items-center"
+        )}
+        style={{
+          gap: ".5rem",
+        }}
       >
         <label>
           <input

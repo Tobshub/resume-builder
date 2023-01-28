@@ -74,6 +74,11 @@ function BuilderFieldFormHeadingComponent({
           // exit edit mode
           setIsEditing(false);
         }}
+        className={csx(
+          "d-flex",
+          "justify-content-start align-items-center"
+        )}
+        style={{ gap: "1rem" }}
       >
         <label>
           <input
@@ -106,6 +111,7 @@ function BuilderFieldFormHeadingComponent({
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "center",
+        gap: ".75rem",
       }}
     >
       <h3 className="fs-5">{item.props.name}</h3>

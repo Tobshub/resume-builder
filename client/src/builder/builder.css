@@ -2,6 +2,14 @@
   padding: 0 2rem;
 }
 
+.builder-section {
+  margin-bottom: 1.25rem;
+}
+
+.builder-field {
+  margin-bottom: 0.5rem;
+}
+
 .builder-section input,
 .builder-section textarea {
   font-size: 1.5rem;
@@ -12,6 +20,15 @@
   border: 0;
   border-bottom: 1px solid;
   border-top: white;
+}
+
+.builder-section button {
+  padding: 0.2rem 0.8rem;
+}
+
+.builder-field button {
+  padding: 0.2rem 0.5rem;
+  font-size: smaller;
 }
 
 .builder-field input,
