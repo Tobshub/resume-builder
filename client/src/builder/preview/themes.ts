@@ -31,7 +31,7 @@ const themes = {
     },
     side: {
       font: {
-        large: ".6rem",
+        large: ".7rem",
         small: ".35rem",
       },
       highlights: "gold",

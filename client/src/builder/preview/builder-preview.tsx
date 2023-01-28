@@ -22,13 +22,14 @@ export default function BuilderPreview({
         backgroundColor: theme.general.background,
         color: theme.general.text,
         padding: `${theme.general.start.y}px ${theme.general.start.x}px`,
+        textAlign: "left",
       }}
     >
       <BuilderPreviewHeader theme={theme.header} resume={resume} />
       <section
         style={{
           display: "flex",
-          gap: "10%",
+          gap: "5%",
         }}
       >
         <BuilderPreviewSide theme={theme.side} resume={resume} />
@@ -55,7 +56,7 @@ function BuilderPreviewHeader(props: {
         gap: "1rem",
         padding: "0 .5rem",
         border: `1px solid ${props.theme.highlights}`,
-        marginBottom: "1.5rem",
+        marginBottom: props.theme.font.large,
       }}
     >
       {props.resume?.image ? (
@@ -73,6 +74,8 @@ function BuilderPreviewHeader(props: {
         <h1
           style={{
             fontSize: props.theme.font.large,
+            marginBottom: 0,
+            marginTop: props.theme.font.small,
           }}
         >
           {
@@ -109,7 +112,7 @@ function BuilderPreviewMain(props: {
   return (
     <main
       style={{
-        width: "70%",
+        width: "65%",
         fontSize: props.theme.font.small,
       }}
     >
@@ -155,7 +158,7 @@ function BuilderPreviewSide(props: {
 }) {
   return (
     <article
-      style={{ width: "20%", display: "flex", flexDirection: "column" }}
+      style={{ width: "30%", display: "flex", flexDirection: "column" }}
     >
       {props.resume?.side.map(section => (
         <div key={section.id}>
