@@ -79,7 +79,6 @@ function BuilderFieldFormHeadingComponent({
           <input
             value={nameEdits}
             onChange={e => setNameEdits(e.target.value)}
-            className={csx("form-control")}
           />
         </label>
         <button type="submit" className={csx("btn btn-outline-success")}>

@@ -40,7 +40,7 @@ export default function BuilderFormSectionComponent({
   };
 
   return (
-    <div className="p-2">
+    <div className="p-2 builder-section">
       <BuilderFormSectionComponentHeading
         section={section}
         handleChange={handleChange}
@@ -110,7 +110,6 @@ function BuilderFormSectionComponentHeading({
       >
         <label>
           <input
-            className={csx("form-control p-2")}
             value={titleEdits}
             onChange={e => setTitleEdits(e.target.value)}
           />
