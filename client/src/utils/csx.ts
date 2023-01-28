@@ -1,3 +1,3 @@
-export default function csx(...classNames: string[]) {
-  return classNames.join(" ");
+export default function csx(...name: string[]) {
+  return name.join(" ");
 }
