@@ -7,7 +7,7 @@ export default function useResumeState(
   Image: string
 ) {
   const header = builder.find(
-    section => section.props.defaultChildPosition === "header"
+    section => section.props.defaultChildPosition === "HEADER"
   );
 
   // throw error if there isn't a header
@@ -20,7 +20,7 @@ export default function useResumeState(
   const main =
     builder.filter(
       section =>
-        section.props.defaultChildPosition === "main" &&
+        section.props.defaultChildPosition === "MAIN" &&
         section.props.children
           .length /** only display sections with children */
     ) ?? [];
@@ -28,7 +28,7 @@ export default function useResumeState(
   const side =
     builder.filter(
       section =>
-        section.props.defaultChildPosition === "side" &&
+        section.props.defaultChildPosition === "SIDE" &&
         section.props.children
           .length /** only display sections with children */
     ) ?? [];
@@ -41,3 +41,4 @@ export default function useResumeState(
 
   return resume;
 }
+

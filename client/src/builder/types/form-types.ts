@@ -3,8 +3,8 @@ import { BuilderField } from "./field-types";
 export type BuilderFormSectionProps = {
   title: string;
   children: BuilderField[];
-  groupType: "flat" | "list";
-  defaultChildPosition: "header" | "main" | "side";
+  groupType: "FLAT" | "LIST";
+  defaultChildPosition: "HEADER" | "MAIN" | "SIDE";
   defaultChildType?: BuilderField["props"]["type"];
   isEditable?: boolean;
 };
@@ -30,3 +30,4 @@ export class BuilderFormSection {
     this.props.title = newTitle;
   }
 }
+
