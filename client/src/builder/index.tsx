@@ -1,12 +1,13 @@
 import "./builder.css";
-import { useEffect, useMemo, useState } from "react";
-import BuilderForm from "./form/form";
+import { lazy, useEffect, useMemo, useState, Suspense } from "react";
 import useResumeState from "./hooks/resume-state";
 import BuilderPreview from "./preview/builder-preview";
 import { BuilderFormSection } from "./types/form-types";
 import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import themes from "./preview/themes";
+// lazy load
+const BuilderForm = lazy(() => import("./form/form"));
 
 export default function BuilderPage() {
   // TODO: store resume data server-side for persistence
@@ -42,10 +43,13 @@ export default function BuilderPage() {
       className="builder"
     >
       <section>
-        <BuilderForm
-          setBuilderForm={setBuilderForm}
-          setUserImage={setUserImage}
-        />
+        {/* TODO: create a blurry version of the form to use as the loader */}
+        <Suspense fallback={<div>Loading...</div>}>
+          <BuilderForm
+            setBuilderForm={setBuilderForm}
+            setUserImage={setUserImage}
+          />
+        </Suspense>
       </section>
       <section>
         <BuilderPreview resume={resume} theme={theme} />
