@@ -1,5 +1,7 @@
 # Resume-Builder
 
+![image](https://user-images.githubusercontent.com/108701007/215301726-8f47d844-21c9-4979-b1a3-db91a7a4f2b0.png)
+
 Resume builder is a free application for easily and seamlessly creating your resume.
 Whether it's your first job or your next job, resume builder will help in creating an online presentable and pdf downloadable version of your resume that is both eye-catching and informative.
 
