@@ -5,7 +5,7 @@ const defaultFormSections = [
   new BuilderFormSection({
     title: "TL;DR",
     groupType: "FLAT",
-    defaultChildPosition: "header",
+    defaultChildPosition: "HEADER",
     children: [
       new FieldWithText({
         name: "First Name",
@@ -55,7 +55,7 @@ const defaultFormSections = [
       new FieldWithText({
         name: "",
         content: "",
-        type: "long",
+        type: "LONG",
       }),
     ],
   }),
