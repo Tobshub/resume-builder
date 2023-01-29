@@ -22,13 +22,13 @@ export default function BuilderFieldForm({
 }: BuilderFieldProps) {
   return (
     <label className="builder-field">
-      {sectionType === "flat" ? (
+      {sectionType === "FLAT" ? (
         <BuilderFieldFormHeadingComponent
           item={item}
           handleChange={handleNameChange}
         />
       ) : null}
-      {item.props.type === "short" ? (
+      {item.props.type === "SHORT" ? (
         <input
           type="text"
           placeholder={item.props.name}

@@ -4,84 +4,85 @@ import { BuilderFormSection } from "../types/form-types";
 const defaultFormSections = [
   new BuilderFormSection({
     title: "TL;DR",
-    groupType: "flat",
-    defaultChildPosition: "header",
+    groupType: "FLAT",
+    defaultChildPosition: "HEADER",
     children: [
       new FieldWithText({
         name: "First Name",
-        type: "short",
+        type: "SHORT",
         content: "",
       }),
       new FieldWithText({
         name: "Last Name",
-        type: "short",
+        type: "SHORT",
         content: "",
       }),
       new FieldWithText({
         name: "Wanted Position",
-        type: "short",
+        type: "SHORT",
         content: "",
       }),
     ],
   }),
   new BuilderFormSection({
     title: "Personal",
-    defaultChildPosition: "side",
-    groupType: "flat",
+    defaultChildPosition: "SIDE",
+    groupType: "FLAT",
     children: [
       new FieldWithText({
         name: "Email",
-        type: "short",
+        type: "SHORT",
         content: "",
       }),
       new FieldWithText({
         name: "Phone No.",
-        type: "short",
+        type: "SHORT",
         content: "",
       }),
       new FieldWithText({
         name: "State/Country",
-        type: "short",
+        type: "SHORT",
         content: "",
       }),
     ],
   }),
   new BuilderFormSection({
     title: "About Me",
-    defaultChildPosition: "main",
-    groupType: "list",
+    defaultChildPosition: "MAIN",
+    groupType: "LIST",
     isEditable: false,
     children: [
       new FieldWithText({
         name: "",
         content: "",
-        type: "long",
+        type: "LONG",
       }),
     ],
   }),
   new BuilderFormSection({
     title: "Education",
-    defaultChildPosition: "main",
-    groupType: "flat",
+    defaultChildPosition: "MAIN",
+    groupType: "FLAT",
     isEditable: true,
     children: [],
   }),
   new BuilderFormSection({
     title: "Hobbies",
-    defaultChildPosition: "side",
-    defaultChildType: "short",
-    groupType: "list",
+    defaultChildPosition: "SIDE",
+    defaultChildType: "SHORT",
+    groupType: "LIST",
     isEditable: true,
     children: [],
   }),
   new BuilderFormSection({
     title: "Skills",
-    defaultChildPosition: "side",
-    defaultChildType: "short",
-    groupType: "list",
+    defaultChildPosition: "SIDE",
+    defaultChildType: "SHORT",
+    groupType: "LIST",
     isEditable: true,
     children: [],
   }),
 ];
 
 export default defaultFormSections;
+

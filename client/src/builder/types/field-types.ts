@@ -1,7 +1,7 @@
 export type BuilderField = FieldWithText;
 
 export type FieldWithTextProps = {
-  type: "short" | "long";
+  type: "SHORT" | "LONG";
   name: string;
   content: string;
   isEditable?: boolean;
@@ -24,3 +24,4 @@ export class FieldWithText {
     }
   }
 }
+

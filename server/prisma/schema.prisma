@@ -40,10 +40,26 @@ type BuilderFormSection {
 type BuilderFormSectionProps {
   title                String
   children             BuilderField[]
-  groupType            String
-  defaultChildPosition String
-  defaultChildType     String?
+  groupType            GroupType
+  defaultChildPosition DefaultChildPosition
+  defaultChildType     DefaultChildType?
   isEditable           Boolean?
+}
+
+enum GroupType {
+  FLAT 
+  LIST
+}
+
+enum DefaultChildPosition {
+  HEADER
+  MAIN
+  SIDE
+}
+
+enum DefaultChildType {
+  SHORT 
+  LONG
 }
 
 type BuilderField {
@@ -52,7 +68,7 @@ type BuilderField {
 }
 
 type BuilderFieldProps {
-  type          String
+  type          DefaultChildType
   name          String
   content       String
   isEditable    Boolean?

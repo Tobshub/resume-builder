@@ -76,8 +76,8 @@ export default function BuilderForm(props: BuilderFormProps) {
           onClick={() =>
             addSection({
               title: "Untitled",
-              groupType: "flat",
-              defaultChildPosition: "main",
+              groupType: "FLAT",
+              defaultChildPosition: "MAIN",
               children: [],
               isEditable: true,
             })
@@ -97,3 +97,4 @@ export default function BuilderForm(props: BuilderFormProps) {
     </div>
   );
 }
+

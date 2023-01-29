@@ -48,7 +48,7 @@ export default function BuilderFormSectionComponent({
       <div
         className={csx(
           "w-100 d-flex gap-3 flex-wrap",
-          section.props.groupType === "list" ? "flex-column" : ""
+          section.props.groupType === "LIST" ? "flex-column" : ""
         )}
       >
         {section.props.children.map(item => (
@@ -70,9 +70,9 @@ export default function BuilderFormSectionComponent({
           onClick={() => {
             section.addChild(
               new FieldWithText({
-                name: section.props.groupType === "list" ? "" : "Untitled",
+                name: section.props.groupType === "LIST" ? "" : "Untitled",
                 content: "",
-                type: section.props.defaultChildType ?? "long",
+                type: section.props.defaultChildType ?? "LONG",
                 isEditable: true,
               })
             );
