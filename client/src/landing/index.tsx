@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResumeSVG from "../assets/images/3-resumes.svg";
 import csx from "../utils/csx";
@@ -19,6 +19,7 @@ export default function LandingPage() {
       }}
     >
       <img
+        loading="lazy"
         src={ResumeSVG}
         style={{
           maxHeight: "650px",
