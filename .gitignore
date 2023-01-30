@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 *-lock.json
+*-lock.yaml
 .env
 
 # Editor directories and files
