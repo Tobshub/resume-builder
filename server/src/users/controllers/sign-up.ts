@@ -30,15 +30,13 @@ export default async function (input: {
       return { ok: false as const, message: "an error occured" };
     }
     // create token
-    const { id } = newUser;
-
     if (!env.jwtSecret) {
       console.error("Error: jwt secret is missing");
       return { ok: false as const, message: "internal server error" };
     }
 
     const token = jwt.sign(
-      id /** sign the token with the user's id */,
+      newUser.id /** sign the token with the user's id */,
       env.jwtSecret
     );
 
