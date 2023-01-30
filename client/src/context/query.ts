@@ -20,10 +20,10 @@ export const appTRPCClient = trpc.createClient({
     httpBatchLink({
       url: env.SERVER_URL,
       headers() {
-        // token set in localstorage
+        // get token from localstorage
         const token = storage.get("token");
         return {
-          auth: token,
+          authorization: token,
         };
       },
     }),
