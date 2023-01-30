@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
-import { PrismaConnect } from "./config/prisma";
+import usePrisma, { PrismaConnect } from "./config/prisma";
 import trpcExpress from "./router";
 
 config(); /** load environment variables */

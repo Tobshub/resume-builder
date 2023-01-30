@@ -1,6 +1,5 @@
 import { tRouter, tProcedure } from "../config/trpc";
 import z from "zod";
-import { ParserWithInputOutput } from "@trpc/server/dist/core/parser";
 import signUpController from "./controllers/sign-up";
 import loginController from "./controllers/login";
 
@@ -24,7 +23,7 @@ const userRouter = tRouter({
         password: z.string().min(8).max(64 /** all for opusbopus */),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const login = await loginController(input);
       return login;
     }),
