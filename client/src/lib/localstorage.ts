@@ -1,10 +1,6 @@
 export function set(key: string, data: any) {
-  if (typeof data === "string") {
-    localStorage.setItem(key, data);
-    return;
-  }
-  // json stringify for non-string types
   localStorage.setItem(key, JSON.stringify(data));
+  return;
 }
 
 export function get(key: string) {
