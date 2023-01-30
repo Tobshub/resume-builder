@@ -1,5 +1,5 @@
 import * as trpcExpress from "@trpc/server/adapters/express";
-import { tRouter } from "./config/trpc";
+import { createContext, tRouter } from "./config/trpc";
 import userRouter from "./users/user-router";
 import { Router } from "express";
 
@@ -13,6 +13,7 @@ export type AppRouter = typeof mergeRouter;
 
 const trpcRouter = trpcExpress.createExpressMiddleware({
   router: mergeRouter,
+  createContext,
 });
 
 export default trpcRouter;

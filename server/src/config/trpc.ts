@@ -1,6 +1,21 @@
-import { initTRPC, TRPCError } from "@trpc/server";
+import { inferAsyncReturnType, initTRPC, TRPCError } from "@trpc/server";
+import * as trpcExpress from "@trpc/server/adapters/express";
 
-const trpc = initTRPC.context<{ auth: { token: string } }>().create();
+// created for each request
+export const createContext = ({
+  req,
+  res,
+}: trpcExpress.CreateExpressContextOptions) => {
+  const token = req.headers.authorization;
+  console.log(token);
+  return {
+    auth: token,
+  };
+};
+
+type Context = inferAsyncReturnType<typeof createContext>;
+
+const trpc = initTRPC.context<Context>().create();
 
 export const tRouter = trpc.router;
 export const tProcedure = trpc.procedure;
