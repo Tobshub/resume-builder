@@ -19,7 +19,7 @@
   background-color: hsla(0, 0%, 61%, 0.133);
   border: 0;
   border-bottom: 1px solid;
-  border-top: white;
+  border-color: white;
 }
 
 .builder-section button {
