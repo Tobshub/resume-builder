@@ -9,7 +9,7 @@ const userRouter = tRouter({
       z.object({
         email: z.string().email(),
         name: z.string(),
-        password: z.string(),
+        password: z.string().min(8).max(64 /** all for opusbopus */),
       })
     )
     .mutation(async ({ input }) => {
@@ -20,7 +20,7 @@ const userRouter = tRouter({
     .input(
       z.object({
         email: z.string().email(),
-        password: z.string().min(8).max(64 /** all for opusbopus */),
+        password: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
