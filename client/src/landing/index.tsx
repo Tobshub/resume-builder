@@ -32,9 +32,9 @@ export default function LandingPage() {
           className="fs-6"
           style={{ lineBreak: "loose", fontWeight: 500 }}
         >
-          Save time with our easy to use resume builder. No need for
-          formatting difficulties, like in Word. Rapidly make the perfect,
-          job-winning resume to make your recruiter fall in love.
+          Save time with our easy to use resume builder. No formatting
+          difficulties or stress. Rapidly make the perfect, job-winning
+          resume to make your recruiter fall in love.
         </p>
         <div
           className={csx(
