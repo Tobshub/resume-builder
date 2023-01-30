@@ -18,7 +18,7 @@ export default async function (input: {
   }
 
   // compare plain and hashed passwords
-  const validate = await bcrypt.compare(user.password, user.password);
+  const validate = await bcrypt.compare(input.password, user.password);
 
   if (!validate) {
     return { ok: false as const, message: "email or password is wrong" };
