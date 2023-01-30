@@ -9,7 +9,10 @@ export default function LandingPage() {
 
   return (
     <div
-      className={csx("d-flex page", "align-items-center")}
+      className={csx(
+        "d-flex page",
+        "align-items-center justify-content-center"
+      )}
       style={{
         gap: "3.5rem",
         backgroundColor: "#6699ff12",
@@ -33,8 +36,8 @@ export default function LandingPage() {
         </h1>
         <p className="fs-6" style={{ lineBreak: "loose", fontWeight: 500 }}>
           Save time with our easy to use resume builder. No formatting
-          difficulties or stress. Rapidly make the perfect, job-winning resume
-          to make your recruiter fall in love.
+          difficulties or stress. Rapidly make the perfect resume to make your
+          recruiter fall in love, and land your next job.
         </p>
         <div
           className={csx("d-flex w-100", "justify-center align-items-center")}

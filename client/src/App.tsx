@@ -9,7 +9,8 @@ import { appQueryClient, appTRPCClient } from "./context/query";
 import LandingPage from "./landing";
 import trpc from "./utils/trpc";
 import * as storage from "./lib/localstorage";
-import Login from "./auth";
+import Login from "./auth/login";
+import SignUp from "./auth/sign-up";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,24 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <Login />,
+    loader({ request }) {
+      const url = new URL(request.url);
+      // go to login route
+      if (url.pathname === "/auth") {
+        return redirect("/auth/login");
+      }
+      return null;
+    },
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "sign-up",
+        element: <SignUp />,
+      },
+    ],
   },
   {
     path: "/",
