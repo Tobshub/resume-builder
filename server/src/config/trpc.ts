@@ -8,7 +8,7 @@ export const createContext = ({
 }: trpcExpress.CreateExpressContextOptions) => {
   const token = req.headers.authorization;
   return {
-    auth: token,
+    auth: { token },
   };
 };
 
