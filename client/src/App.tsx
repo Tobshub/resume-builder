@@ -4,7 +4,7 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
-import BuilderPage from "./builder";
+import BuilderPage from "./builder/builder";
 import { appQueryClient, appTRPCClient } from "./context/query";
 import LandingPage from "./landing";
 import trpc from "./utils/trpc";
