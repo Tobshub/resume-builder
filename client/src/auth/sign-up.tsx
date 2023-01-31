@@ -21,7 +21,7 @@ export default function SignUp() {
       console.log(res);
       if (res.ok) {
         storage.set("token", res.data.token);
-        navigate("/");
+        navigate("/resumes");
       } else {
         updateErrorState("general", true);
       }

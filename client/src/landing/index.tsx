@@ -46,7 +46,7 @@ export default function LandingPage() {
           <button
             className={csx("btn btn-primary px-4 py-2")}
             style={{ fontWeight: 700 }}
-            onClick={() => navigate("/builder")}
+            onClick={() => navigate("/resumes")}
           >
             Create My Resume
           </button>

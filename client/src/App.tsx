@@ -11,12 +11,21 @@ import trpc from "./utils/trpc";
 import * as storage from "./lib/localstorage";
 import Login from "./auth/login";
 import SignUp from "./auth/sign-up";
+import Resumes from "./resume/resume";
 
 const router = createBrowserRouter([
   {
-    path: "/builder",
+    path: "/builder/:resumeId",
     element: <BuilderPage />,
-    loader: () => {
+    loader({ params }) {
+      const { resumeId } = params;
+      return resumeId;
+    },
+  },
+  {
+    path: "/resumes",
+    element: <Resumes />,
+    loader() {
       const token = storage.get("token");
       if (!token) {
         return redirect("/auth");

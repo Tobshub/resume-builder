@@ -6,6 +6,7 @@ import { BuilderFormSection } from "./types/form-types";
 import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import themes from "./preview/themes";
+import csx from "../utils/csx";
 // lazy load
 const BuilderForm = lazy(() => import("./form/form"));
 
@@ -35,26 +36,24 @@ export default function BuilderPage() {
 
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      className="builder"
+      className={csx(
+        "builder d-flex",
+        "justify-content-center align-items-center"
+      )}
     >
-      <section>
-        {/* TODO: create a blurry version of the form to use as the loader */}
-        <Suspense fallback={<div>Loading...</div>}>
+      {/* TODO: create a blurry version of the form to use as the loader */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <section>
           <BuilderForm
             setBuilderForm={setBuilderForm}
             setUserImage={setUserImage}
           />
-        </Suspense>
-      </section>
-      <section>
-        <BuilderPreview resume={resume} theme={theme} />
-        <button onClick={renderPDF}>Generate PDF</button>
-      </section>
+        </section>
+        <section>
+          <BuilderPreview resume={resume} theme={theme} />
+          <button onClick={renderPDF}>Generate PDF</button>
+        </section>
+      </Suspense>
     </div>
   );
 }
