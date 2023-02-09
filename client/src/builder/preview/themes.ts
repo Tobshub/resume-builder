@@ -1,17 +1,41 @@
-const themes = {
+type SectionTheme = {
+  color?: string;
+  background?: string;
+  highlights?: string;
+  start: {
+    y: number;
+    x: number;
+  };
+  flexStyle: "column" | "row" | "row-reverse" | "column-reverse";
+  font?: {
+    large: string;
+    small: string;
+  };
+  width?: number | string;
+  height?: number | string;
+};
+
+const themes: {
+  [key: string]: {
+    general: SectionTheme;
+    header: SectionTheme;
+    body: SectionTheme;
+  };
+} = {
   default: {
     general: {
       background: "#ffffff",
-      text: "#000000",
       highlights: "goldenrod",
       start: {
         y: 10,
         x: 10,
       },
+      flexStyle: "column",
     },
     header: {
+      flexStyle: "row",
       background: "#aaaaaa",
-      text: "#ffffff",
+      color: "#ffffff",
       highlights: "#000000",
       font: {
         large: ".75rem",
@@ -22,57 +46,55 @@ const themes = {
         y: 0,
       },
     },
-    main: {
-      font: {
-        large: ".7rem",
-        small: ".4rem",
-      },
+    body: {
+      flexStyle: "row",
+      color: "#000000",
       highlights: "gold",
-    },
-    side: {
       font: {
         large: ".7rem",
         small: ".35rem",
       },
-      highlights: "gold",
+      start: {
+        y: 0,
+        x: 0,
+      },
     },
   },
   clean: {
     general: {
-      background: "#eeeeee",
-      text: "#111111",
-      highlights: "black",
+      background: "#ffffff",
+      highlights: "goldenrod",
       start: {
         y: 10,
         x: 10,
       },
+      flexStyle: "column",
     },
     header: {
-      background: "#000",
-      text: "#ffffff",
+      flexStyle: "row",
+      background: "#aaaaaa",
+      color: "#ffffff",
       highlights: "#000000",
       font: {
         large: ".75rem",
-        small: ".45rem",
+        small: ".5rem",
       },
       start: {
         x: 0,
         y: 0,
       },
     },
-    main: {
+    body: {
+      flexStyle: "row",
+      color: "#000000",
       font: {
         large: ".7rem",
-        small: ".3rem",
+        small: ".35rem",
       },
-      highlights: "black",
-    },
-    side: {
-      font: {
-        large: ".7rem",
-        small: ".3rem",
+      start: {
+        y: 0,
+        x: 0,
       },
-      highlights: "black",
     },
   },
 };

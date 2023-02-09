@@ -15,7 +15,6 @@ export default function LandingPage() {
       )}
       style={{
         gap: "3.5rem",
-        backgroundColor: "#6699ff12",
       }}
     >
       <img

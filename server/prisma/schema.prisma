@@ -28,10 +28,15 @@ model Resume {
 
 // same as PreviewStructure on client
 type ResumeStructure {
-  header   BuilderFormSection
-  main     BuilderFormSection[]
-  side     BuilderFormSection[]
-  image    String
+  title           String @default("Untitled")
+  builderForm     BuilderFormSection[]
+  image           String
+  theme           Theme
+}
+
+// store themes with their respective name
+enum Theme {
+  DEFAULT
 }
 
 type BuilderFormSection {

@@ -1,17 +1,21 @@
 import "./builder.css";
 import { lazy, useEffect, useMemo, useState, Suspense } from "react";
 import useResumeState from "./hooks/resume-state";
-import BuilderPreview from "./preview/builder-preview";
 import { BuilderFormSection } from "./types/form-types";
 import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import themes from "./preview/themes";
 import csx from "../utils/csx";
+import { useLoaderData } from "react-router-dom";
 // lazy load
 const BuilderForm = lazy(() => import("./form/form"));
+const BuilderPreview = lazy(() => import("./preview/builder-preview"));
 
+/* TODO: 
+  Store the resume content and image (as arrayBuffer) server side
+*/
 export default function BuilderPage() {
-  // TODO: store resume data server-side for persistence
+  const loaderData = useLoaderData() as { resumeId: string; theme: string };
   // store the resume data
   const [builderForm, setBuilderForm] = useState<BuilderFormSection[]>([]);
   const [userImage, setUserImage] = useState("");
@@ -19,7 +23,7 @@ export default function BuilderPage() {
   // store the resume structure
   const resume = useResumeState(builderForm, userImage);
   const pdf = useMemo(() => new jsPDF({ unit: "mm", compress: true }), []);
-  const [theme] = useState<typeof themes.default>(themes.clean);
+  const [theme] = useState<typeof themes.default>(themes[loaderData.theme]);
 
   // create the pdf out of the preview
   const renderPDF = async () => {

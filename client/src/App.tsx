@@ -11,15 +11,17 @@ import trpc from "./utils/trpc";
 import * as storage from "./lib/localstorage";
 import Login from "./auth/login";
 import SignUp from "./auth/sign-up";
-import Resumes from "./resume/resume";
+import Resumes, { NewResumeModal } from "./resumes/resume";
 
 const router = createBrowserRouter([
   {
     path: "/builder/:resumeId",
     element: <BuilderPage />,
-    loader({ params }) {
+    loader({ params, request }) {
+      const url = new URL(request.url);
+      const theme = url.searchParams.get("theme");
       const { resumeId } = params;
-      return resumeId;
+      return { resumeId, theme };
     },
   },
   {
@@ -32,6 +34,12 @@ const router = createBrowserRouter([
       }
       return token;
     },
+    children: [
+      {
+        path: "new",
+        element: <NewResumeModal />,
+      },
+    ],
   },
   {
     path: "/auth",

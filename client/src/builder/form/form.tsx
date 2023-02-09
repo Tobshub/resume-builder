@@ -13,17 +13,17 @@ type BuilderFormProps = {
   setUserImage: Dispatch<SetStateAction<string>>;
 };
 
+// TODO: on the first load get the props from the server
 export default function BuilderForm(props: BuilderFormProps) {
   // store the sections for the resume builder form
-  const [sections, setSections, pushSection] = useStrictObjectArrayState<
-    BuilderFormSection[]
-  >(defaultFormSections);
+  const [sections, setSections, pushSection] =
+    useStrictObjectArrayState<BuilderFormSection[]>(defaultFormSections);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (changedSection: BuilderFormSection) => {
-    setSections(prevState => {
+    setSections((prevState) => {
       const index = prevState.findIndex(
-        section => section.id === changedSection.id
+        (section) => section.id === changedSection.id
       );
       if (index != undefined) {
         prevState[index] = changedSection;
@@ -51,26 +51,34 @@ export default function BuilderForm(props: BuilderFormProps) {
     }
   };
 
-  // save the resume on first render
-  useEffect(() => {
-    saveResume();
-  }, []);
-
   const addSection = (props: BuilderFormSectionProps) => {
     pushSection(new BuilderFormSection(props));
   };
 
   return (
-    <div className={csx("w-100 h-100 builder-form")}>
+    <div
+      className={csx("w-100 builder-form")}
+      style={{
+        backgroundColor: "hsla(0, 0%, 69%, 30%)",
+      }}
+    >
+      <style>{`
+        button.btn {
+          padding: .4rem .8rem;
+          font-weight: 700;
+        }
+      `}</style>
+
       <input ref={imageInputRef} type="file" accept="image/*" />
-      {sections.map(section => (
+
+      {sections.map((section) => (
         <BuilderFormSectionComponent
           key={section.id}
           section={section}
           handleChange={handleChange}
         />
       ))}
-      <div className="p-2">
+      <div className={csx("p-2 d-flex flex-row gap-4")}>
         <button
           className={csx("btn btn-outline-secondary")}
           onClick={() =>
@@ -85,8 +93,6 @@ export default function BuilderForm(props: BuilderFormProps) {
         >
           Add Section
         </button>
-      </div>
-      <div className="p-2">
         <button
           className={csx("btn btn-outline-secondary")}
           onClick={saveResume}
@@ -97,4 +103,3 @@ export default function BuilderForm(props: BuilderFormProps) {
     </div>
   );
 }
-
