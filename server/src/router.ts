@@ -4,15 +4,15 @@ import userRouter from "./users/user-router";
 import resumeRouter from "./resumes/resume-router";
 
 // merge trpc routers
-const mergeRouter = tRouter({
+const appRouter = tRouter({
   user: userRouter,
   resume: resumeRouter,
 });
 
-export type AppRouter = typeof mergeRouter;
+export type AppRouter = typeof appRouter;
 
 const trpcRouter = trpcExpress.createExpressMiddleware({
-  router: mergeRouter,
+  router: appRouter,
   createContext,
 });
 

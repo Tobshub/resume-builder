@@ -20,18 +20,12 @@ model User {
 
 // FIXIT: add resume title
 model Resume {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  owner    User      @relation(fields: [ownerId], references: [id])
-  ownerId  String    @db.ObjectId
-  content  ResumeStructure
-}
-
-// same as PreviewStructure on client
-type ResumeStructure {
-  title           String @default("Untitled")
-  builderForm     BuilderFormSection[]
-  image           String
-  theme           Theme
+  id       String          @id @default(auto()) @map("_id") @db.ObjectId
+  owner    User            @relation(fields: [ownerId], references: [id])
+  ownerId  String          @db.ObjectId
+  theme    Theme
+  title    String          @default("Untitled")
+  sections ResumeSection[]
 }
 
 // store themes with their respective name
@@ -39,44 +33,28 @@ enum Theme {
   DEFAULT
 }
 
-type BuilderFormSection {
-  id       String
-  props    BuilderFormSectionProps
-}
-
-type BuilderFormSectionProps {
+type ResumeSection {
+  id                   String
   title                String
-  children             BuilderField[]
-  groupType            GroupType
-  defaultChildPosition DefaultChildPosition
-  defaultChildType     DefaultChildType?
-  isEditable           Boolean?
+  fields               Field[]
+  defaultFieldPosition RenderSection
 }
 
-enum GroupType {
-  FLAT 
-  LIST
+type Field {
+  name     String
+  content  String
+  type     FieldType
+  position RenderSection
 }
 
-enum DefaultChildPosition {
-  HEADER
-  MAIN
-  SIDE
-}
-
-enum DefaultChildType {
-  SHORT 
+enum FieldType {
+  SHORT
   LONG
 }
 
-type BuilderField {
-  id    String
-  props BuilderFieldProps
-}
-
-type BuilderFieldProps {
-  type          DefaultChildType
-  name          String
-  content       String
-  isEditable    Boolean?
+enum RenderSection {
+  HEADER
+  MAIN
+  SIDE
+  SPOTLIGHT
 }

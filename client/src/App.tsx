@@ -1,10 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query";
-import {
-  createBrowserRouter,
-  redirect,
-  RouterProvider,
-} from "react-router-dom";
-import BuilderPage from "./builder/builder";
+import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 import { appQueryClient, appTRPCClient } from "./context/query";
 import LandingPage from "./landing";
 import trpc from "./utils/trpc";
@@ -16,13 +11,7 @@ import Resumes, { NewResumeModal } from "./resumes/resume";
 const router = createBrowserRouter([
   {
     path: "/builder/:resumeId",
-    element: <BuilderPage />,
-    loader({ params, request }) {
-      const url = new URL(request.url);
-      const theme = url.searchParams.get("theme");
-      const { resumeId } = params;
-      return { resumeId, theme };
-    },
+    element: <>Hello world</>,
   },
   {
     path: "/resumes",
@@ -77,4 +66,3 @@ export default function App() {
     </trpc.Provider>
   );
 }
-

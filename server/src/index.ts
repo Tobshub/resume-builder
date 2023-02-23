@@ -1,11 +1,11 @@
 import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
-import usePrisma, { PrismaConnect } from "./config/prisma";
+import { PrismaConnect } from "./config/prisma";
 import trpcExpress from "./router";
 
-config(); /** load environment variables */
-PrismaConnect(); /** connect to mongodb cluster */
+config();
+PrismaConnect();
 
 export const env = {
   port: process.env.PORT,

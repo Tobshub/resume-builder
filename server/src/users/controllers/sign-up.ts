@@ -4,11 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 // register a new user
-export default async function (input: {
-  email: string;
-  name: string;
-  password: string;
-}) {
+export default async function (input: { email: string; name: string; password: string }) {
   // check if a user exists with that email
   const oldUser = await usePrisma.user.findUnique({
     where: { email: input.email },
@@ -19,10 +15,7 @@ export default async function (input: {
         data: {
           email: input.email,
           name: input.name,
-          password: await bcrypt.hash(
-            input.password,
-            10
-          ) /** hash password before storage */,
+          password: await bcrypt.hash(input.password, 10) /** hash password before storage */,
         },
       })
       .catch(console.error);
@@ -35,10 +28,7 @@ export default async function (input: {
       return { ok: false as const, message: "internal server error" };
     }
 
-    const token = jwt.sign(
-      newUser.id /** sign the token with the user's id */,
-      env.jwtSecret
-    );
+    const token = jwt.sign(newUser.id /** sign the token with the user's id */, env.jwtSecret);
 
     return { ok: true as const, data: { token } };
   }
