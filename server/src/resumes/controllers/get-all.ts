@@ -22,6 +22,10 @@ export default async function (token: string) {
     return { ok: true, data: resumes } as const;
   } catch (error) {
     console.error(error);
-    return { ok: false, message: "internal server error" } as const;
+    return {
+      ok: false,
+      message: "internal server error",
+      cause: error instanceof Error ? error.message : undefined,
+    } as const;
   }
 }
